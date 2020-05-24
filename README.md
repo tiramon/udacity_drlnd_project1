@@ -31,6 +31,11 @@ Dependencies needed to get the programm running are gathered in the requirements
 
 `` pip install requirements.txt
 
+To train the agent either run
+`` python run.py 
+
+or execute TainBot.ipynb in jupyter
+
 ## Files
 Agents:
 * dqn_agent.py - a DQN agent with Memory replay und Fixed Q-Targets
