@@ -4,7 +4,7 @@
 * [Training](#training)
 * [Future improvements](#future_improvements)
 
-<a name="layout" />
+<a name="layout"></a>
 ## Neural Network Layout
 
 The layout of the neural network used by all agents is described below and the code can be found [here](./model.py)
@@ -20,23 +20,23 @@ I tried multiple aproaches. First i tried a normal deep Q-network with fixed q t
 
 After that i tried another aproache and wanted to try if a double deep Q-network with memory replay would deliver faster/better results. [Code](./ddqn_agent.py)
 
-<a name="training" />
+<a name="training"></a>
 ## Training
 
 The agent has been trained with a double deep q-network with memory replay until it reached a average score of +13 over 100 consecutive episodes as required by the udacity nanodegree.
 
 ### Parameters
 #### Memory Replay
-| Parameter | Value |
-|-----------|-------:|
+| Parameter | Value | Description |
+|-----------|-------:|---|
 | Buffer size | 10000 |
 | Batch size | 64 |
 | update every x turns | 4 |
 | learning rate | 0,0005 |
 
 | Parameter | Value | Description |
-|-----------|-------:|
-| tau | 0.003 |
+|-----------|-------:| ---|
+| tau | 0.003 | Used by Fixed Q and Double DQN
 | gamma | 0.99 |
 | start epsilon | 1.0 |
 | minimal epsilon | 0.0 |
@@ -45,12 +45,12 @@ The agent has been trained with a double deep q-network with memory replay until
 Optimizer = Adam
 
 ### Training progress
-![](./ddqn_trained_496_episodes.png)
+![](./ddqn_trained_496_episodes.png =20x)
 
 ### Trained weights
 Stored weights can be found at [ddqn_trained_496.pth](ddqn_trained_496.pth)
 
-<a name="future_improvements" />
+<a name="future_improvements"></a>
 ## Future improvements
 
 

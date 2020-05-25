@@ -31,7 +31,10 @@ Dependencies needed to get the programm running are gathered in the requirements
 
 `` pip install requirements.txt
 
+I had problems to install torch==0.4.0 so if you execute pip install torch==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html before the command above it should work as expected
+
 To train the agent either run
+
 `` python run.py 
 
 or execute TainBot.ipynb in jupyter
