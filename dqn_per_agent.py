@@ -36,9 +36,6 @@ class DQN_PER_Agent():
         # Q-Network
         self.qnetwork_local = QNetwork(state_size, action_size, seed).to(device)
         self.qnetwork_target = QNetwork(state_size, action_size, seed).to(device)
-        print(self.qnetwork_local)
-        print(self.qnetwork_target)
-        print(self.qnetwork_local.state_dict())
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
 
         # Replay memory
