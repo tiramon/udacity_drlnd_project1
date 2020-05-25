@@ -7,7 +7,7 @@
 <a name="layout" />
 ## Neural Network Layout
 
-The layout of all agents used is the same and as described below, the code can be found [here](./model.py)
+The layout of the neural network used by all agents is described below and the code can be found [here](./model.py)
 
 | Layer  | In | Out | Activation |
 |--------|----|----:|------------|
@@ -15,21 +15,29 @@ The layout of all agents used is the same and as described below, the code can b
 | Linear | 64 | 64  | RELU       |
 | Linear | 64 |  4  | &nbsp;     |
 
+## Agents
+I tried multiple aproaches. First i tried a normal deep Q-network with fixed q targets and memory replay from previous lessons adapted to the current environment. [Code](./dqn_agent.py)
+
+After that i tried another aproache and wanted to try if a double deep Q-network with memory replay would deliver faster/better results. [Code](./ddqn_agent.py)
+
 <a name="training" />
 ## Training
 
 The agent has been trained with a double deep q-network with memory replay until it reached a average score of +13 over 100 consecutive episodes as required by the udacity nanodegree.
 
 ### Parameters
-
+#### Memory Replay
 | Parameter | Value |
 |-----------|-------:|
 | Buffer size | 10000 |
 | Batch size | 64 |
-| gamma | 0.99 |
-| tau | 0.003 |
-| learning rate | 0,0005 |
 | update every x turns | 4 |
+| learning rate | 0,0005 |
+
+| Parameter | Value | Description |
+|-----------|-------:|
+| tau | 0.003 |
+| gamma | 0.99 |
 | start epsilon | 1.0 |
 | minimal epsilon | 0.0 |
 | epsilon decay | 0.995 |
