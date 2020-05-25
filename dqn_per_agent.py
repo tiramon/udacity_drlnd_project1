@@ -121,13 +121,19 @@ class DQN_PER_Agent():
         deltas = Q_targets-Q_expected
         
         
+        weights = torch.from_numpy(np.zeros(len(deltas))).float().to(device)
         for k, expIndex in enumerate(expIndices):
-            d = abs(deltas[k][0].item())
-            self.memory.memory[expIndex] = self.memory.memory[expIndex]._replace(delta = d, deltapow = d**self.memory.a)
+            d = abs(deltas[k][0].item()) + self.memory.e
+            self.memory[expIndex] = self.memory[expIndex]._replace(delta = d, deltapow = d**self.memory.a)
+            impSampW = self.memory.importanceSampling(self.memory[expIndex])
+            weights[k] = impSampW
             
         
         # Compute loss
-        loss = F.mse_loss(Q_expected, Q_targets)
+        #loss = F.mse_loss(Q_expected, Q_targets)  
+        losses = (Q_expected-Q_targets)**2
+        loss = torch.mean( losses *  weights.unsqueeze(1))
+        
         # Minimize the loss
         self.optimizer.zero_grad()
         loss.backward()
@@ -156,7 +162,7 @@ class PrioritizedReplayBuffer:
     e = 0.001
     # used for sampling probability 0 = uniform random, 1 = priority greedy
     a = 0.1
-    b = 1.0
+    b = 0.5
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
         """Initialize a ReplayBuffer object.
@@ -181,8 +187,8 @@ class PrioritizedReplayBuffer:
         exp = self.experience(state, action, reward, next_state, done, delta, delta**self.a)
         self.memory.append(exp)
     
-    def updatevalue(self, experience): 
-        return (1/buffer_size * 1/probabilityValue(experience.deltapow))**b
+    def importanceSampling(self, experience): 
+        return (1/len(self.memory) * 1/self.probabilityValue(experience.deltapow))**self.b
     
     def probabilityValue(self, deltapow):        
         return deltapow/self.s
@@ -207,3 +213,9 @@ class PrioritizedReplayBuffer:
     def __len__(self):
         """Return the current size of internal memory."""
         return len(self.memory)
+    
+    def __getitem__(self,index):
+        return self.memory[index]
+    
+    def __setitem__(self,index, value):
+        self.memory[index] = value
