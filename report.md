@@ -1,3 +1,5 @@
+Current results of my DQNs can be found at https://docs.google.com/spreadsheets/d/1eUB7RycHVyyxyvEqwnS6_q2bdTcYS8Fv6HvPdg88EAw/edit?usp=sharing
+
 # Training an agent with deep Q-learning
 
 * [Neural Network Layout](#layout)

@@ -1,5 +1,3 @@
-a README that describes how someone not familiar with this project should use your repository. The README should be designed for a general audience that may not be familiar with the Nanodegree program; you should describe the environment that you solved, along with how to install the requirements before running the code in your repository.
-
 # Project: Navigation
 This project is about training an agent to navigate in a large square world and gather yellow bannas, without the agent knowing anything about the environment or rules.
 
