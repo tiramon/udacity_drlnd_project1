@@ -12,7 +12,7 @@ Current results of my DQNs can be found at https://docs.google.com/spreadsheets/
 The layout of the neural network used by all agents is described below and the code can be found [here](./model.py)
 
 | Layer  | In | Out | Activation |
-|--------|----|----:|------------|
+|--------|----:|----:|------------|
 | Linear | 37 | 64  | RELU       |
 | Linear | 64 | 64  | RELU       |
 | Linear | 64 |  4  | &nbsp;     |
