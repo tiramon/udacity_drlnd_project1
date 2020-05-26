@@ -1,3 +1,5 @@
+Current results of my DQNs can be found at https://docs.google.com/spreadsheets/d/1eUB7RycHVyyxyvEqwnS6_q2bdTcYS8Fv6HvPdg88EAw/edit?usp=sharing
+
 # Training an agent with deep Q-learning
 
 * [Neural Network Layout](#layout)
@@ -10,7 +12,7 @@
 The layout of the neural network used by all agents is described below and the code can be found [here](./model.py)
 
 | Layer  | In | Out | Activation |
-|--------|----|----:|------------|
+|--------|----:|----:|------------|
 | Linear | 37 | 64  | RELU       |
 | Linear | 64 | 64  | RELU       |
 | Linear | 64 |  4  | &nbsp;     |
