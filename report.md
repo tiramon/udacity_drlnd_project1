@@ -25,8 +25,8 @@ To avoid those correlations Fixed Q-Targets adds another network which gets soft
 
 The network used consists of one input layer, two hidden layers with ReLU action function and one output layer ([code](./model.py)).
 
-| Layer  | Neurons  | Out | Activation |
-|--------|----:|----:|------------|
+| Layer  | Neurons  | Activation |
+|--------|----:|------------|
 | Input |  37  | &nbsp;       |
 | fully connected |  64 | ReLU       |
 | fully connected |  64 | ReLU       |
