@@ -56,13 +56,20 @@ To see how a trained bot scores execute TrainedBot.ipynb in jupyter
 
 ## Files
 Agents:
-* dqn_agent.py - a DQN agent with Experience Replay and Fixed Q-Targets
-* ddqn_agent.py - a double DQN agent with Experience Replay
-* dqn_per_agent.py - a DQN agent with Prioritized Experience Replay and Fixed Q-Targets
+
+* dqn_agent.py - a DQN agent with Experience Replay and Fixed Q-Targets |
+* ddqn_agent.py - a double DQN agent with Experience Replay |
+* dqn_per_agent.py - a DQN agent with Prioritized Experience Replay and Fixed Q-Targets |
+
+Network Structure:
 
 * model.py - the configuration of the neural network
 
+Files to train:
+
 * run.py - training the agent in the command line
 * TrainBot.ipynb - training the agent in a jupyter notebook
+
+Files to validate:
 
 * TrainedBot.ipynb - running the agent with already created weights to validate previous training
