@@ -1,5 +1,5 @@
 # Project: Navigation
-This project is about training an agent to navigate in a large square world and gather yellow bannas, without the agent knowing anything about the environment or rules.
+This project is about training a deep reinforcment learning agent to navigate in a large square world and gather yellow bannas, without the agent knowing anything about the environment or rules.
 
 ## About the Environment
 
