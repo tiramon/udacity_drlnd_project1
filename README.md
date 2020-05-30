@@ -30,11 +30,15 @@ The Environment can be downloaded at
 ### Install dependencies
 Dependencies needed to get the programm running are gathered in the requirements.txt to install those execute the command:
 
-`` pip install requirements.txt
+```bash
+ pip install requirements.txt
+```
 
 I had problems to install torch==0.4.0 so if you execute 
 
-`` pip install torch==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html 
+```bash
+pip install torch==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html 
+```
 
 before the command above it should work as expected
 
@@ -42,7 +46,9 @@ before the command above it should work as expected
 
 To train the agent either run
 
-`` python run.py 
+```bash
+python run.py 
+```
 
 or execute TrainBot.ipynb in jupyter
 
