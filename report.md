@@ -70,7 +70,7 @@ As last step i tried to implement a DQN with prioritized experience replay (PER)
 I had choosen a &beta; of 0.5, because i had no idea what might be a good value and i tried to change the &alpha; to improve the results, but the further i increased the value away from 0.0 and to 1.0 the worse the results got and sometimes didn't even solve the environment. The best results were with &alpha; 0.0 which in average solved the environment in episode 483. [Code](./dqn_per_agent.py) 
 
 ## Data
-Stored weights from the DQN run can be found at [checkpoint_trained_519_episodes.pth](checkpoint_trained_519_episodes.pth) and other solved values can be found in the [weights](./weights) folder.
+Stored weights from the DQN run can be found at [checkpoint_trained_519_episodes.pth](./weights/checkpoint_trained_519_episodes.pth) and other solved values can be found in the [weights](./weights) folder.
 
 ![](average_score.svg)
 
