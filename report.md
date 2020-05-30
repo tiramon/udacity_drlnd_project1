@@ -1,58 +1,84 @@
-Current results of my DQNs can be found at https://docs.google.com/spreadsheets/d/1eUB7RycHVyyxyvEqwnS6_q2bdTcYS8Fv6HvPdg88EAw/edit?usp=sharing
-
 # Training an agent with deep Q-learning
 
-* [Neural Network Layout](#layout)
-* [Training](#training)
-* [Future improvements](#future_improvements)
+Goal of this project was to train an agent to handle the environment without the agent knowing anything about the environment. It should run until it reached a terminal state (in this environment after doing 300 moves) and score as high as possible.
 
-<a name="layout"></a>
-## Neural Network Layout
+A neural network is used to train the agent. The network is feed with the state and outputs an estimation of the Q-action-value to determine wich action might deliver the best result.
+Because a neural network with backpropagation alone would result in very unstable results two features are added to stabilize the outcome:
 
-The layout of the neural network used by all agents is described below and the code can be found [here](./model.py)
+**Experience Replay**
 
-| Layer  | In | Out | Activation |
+When we train an agent there is a risk of always getting the same experiences in the same or similar order. So if we would learn after every step this might result in very one-sided learning due to the correlations of this experiences. Also it might give rare experiences not enough weight and since we only learned it once, we might miss to learn how to handle it right.
+
+To solve this experience replay introduces a replay buffer. Every experience is stored inside the replay buffer and we learn every n actions a sample of random experiences from this buffer. This way we break the correlation between those experiences and also increase the chance of seeing a rare experience more than once.
+
+An improvment of this would be Prioritized Experience Replay which samples the learn batch proportional random by the last know TD error of the experience. This increases the chance to learn from a experience with a high TD error no matter how rare this experience is.
+
+**Fixed Q-Targets**
+
+In Q-learning we never know what the best result is. Normal Q-learning stores the Q-action-values in a dictionary for each combination of states and actions. So changing one Q-action-value does not affect any other values. But a deep Q-Network (DQN) uses a function approximation to estimate the Q-action-values. So there migh be some correlations that have a negativ effect on our result. 
+
+To avoid those correlations Fixed Q-Targets adds another network which gets soft updates with the factor of &tau; from the main network and is used to reprensent the expected Q-action value when determining our TD error.
+
+## Setup
+
+### Neural Network Layout
+
+The network used consists of one input layer, two hidden layers with ReLU action function and one output layer ([code](./model.py)).
+
+| Layer  | In  | Out | Activation |
 |--------|----:|----:|------------|
-| Linear | 37 | 64  | RELU       |
-| Linear | 64 | 64  | RELU       |
-| Linear | 64 |  4  | &nbsp;     |
-
-## Agents
-I tried multiple aproaches. First i tried a normal deep Q-network with fixed q targets and memory replay from previous lessons adapted to the current environment. [Code](./dqn_agent.py)
-
-After that i tried another aproache and wanted to try if a double deep Q-network with memory replay would deliver faster/better results. [Code](./ddqn_agent.py)
-
-<a name="training"></a>
-## Training
-
-The agent has been trained with a double deep q-network with memory replay until it reached a average score of +13 over 100 consecutive episodes as required by the udacity nanodegree.
+| Linear |  37 | 64  | ReLU       |
+| Linear |  64 | 64  | ReLU       |
+| Linear |  64 |  4  | &nbsp;     |
 
 ### Parameters
-#### Memory Replay
-| Parameter | Value | Description |
-|-----------|-------:|---|
-| Buffer size | 10000 |
-| Batch size | 64 |
-| update every x turns | 4 |
-| learning rate | 0,0005 |
+#### Experience Replay
+| Parameter     | Value | Description |
+|---------------|-------:|---|
+| Buffer size   | 10000 | amount of entries in 'memory'
+| Batch size    |    64 | amount of memory entries that are taken for each learn step
+| update every x turns | 4 | not learning every turn, but all n turns
 
+#### DQN parameter
 | Parameter | Value | Description |
 |-----------|-------:| ---|
-| tau | 0.003 | Used by Fixed Q and Double DQN
-| gamma | 0.99 |
-| start epsilon | 1.0 |
-| minimal epsilon | 0.0 |
-| epsilon decay | 0.995 |
+| learning rate | 0.0005 | learning rate
+| &tau; | 0.003 | used by Double DQN and fixed Q-targets for softupdates of the 2nd network
+| &gamma; | 0.99 | discount factor for valueing future rewards
+| &epsilon; start | 1.0 | percent chance to take a random action instead of best current action
+| &epsilon; decay | 0.995 | factor by wich &epsilon; is reduced after each episode
+| &epsilon; minimal | 0.01 | minimal &epsilon; so that there is always a minimal random part
 
-Optimizer = Adam
 
-### Training progress
-![](./ddqn_trained_496_episodes.png =20x)
+## Training
 
-### Trained weights
-Stored weights can be found at [ddqn_trained_496.pth](ddqn_trained_496.pth)
+The agent has been trained with a deep Q-network (DQN) with experience replay (ER) until it reached a average score of +13 over 100 consecutive episodes as required by the udacity nanodegree.
 
-<a name="future_improvements"></a>
+The result was that the agent declared in average in episode 534 that he solved the environment (average of 13 over 100 episodes) and improved further until around episode 800 he started to fluctuate between an average of 15.5 and 16.0. 
+With small experiments with the hyperparameters it has shown that the initial parameters like used in previous lessons were quite optimal. [Code](./dqn_agent.py) 
+
+
+### Alternate approaches
+#### DDQN
+I also tried a double deep Q-network (DDQN) with experience replay (ER) to check how it would perform in comparison. In Average the agent solved the environment in episode 496 and also and had a bit higher scores. He also started to fluctuate in episode 800 but with slightly higher score between 15.5 and 16.5.
+
+Also i have recognized that the variance is lower so it seems to be more reliable, but to be certain i would need to do some more runs to get more reliable data.  [Code](./ddqn_agent.py)
+
+#### DQN + PER
+As last step i tried to implement a DQN with prioritized experience replay (PER) as far as i understood it from the udacity lessons. I implemented a O(n) version, but the results were not as good as i hoped.
+
+I had choosen a &beta; of 0.5, because i had no idea what might be a good value and i tried to change the &alpha; to improve the results, but the further i increased the value away from 0.0 and to 1.0 the worse the results got and sometimes didn't even solve the environment. The best results were with &alpha; 0.0 which in average solved the environment in episode 483. [Code](./dqn_per_agent.py) 
+
+## Data
+Stored weights from the DQN run can be found at [checkpoint_trained_519_episodes.pth](checkpoint_trained_519_episodes.pth) and other solved values can be found in the [weights](./weights) folder.
+
+![](average_score.svg)
+
+Datas of my testruns can be found at https://docs.google.com/spreadsheets/d/1eUB7RycHVyyxyvEqwnS6_q2bdTcYS8Fv6HvPdg88EAw
+
 ## Future improvements
+For future improvements i would like to take more runs per agent to make sure that my interpretations are right and not some random fluctuations. I also would like to test more hyperparameter changes especially &alpha; and &beta; with PER.
 
+Also since DDQN and DQN+PER both resulted in an earlier average solve episode it might be worth to try a combination of both for further improvements.
 
+Also i would like to refactor my DDQN because this is my first project in python and i didn't get some lines working as i would like them to have, so some implementations are more a working than a performant or good looking version.
