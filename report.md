@@ -54,7 +54,7 @@ The network used consists of one input layer, two hidden layers with ReLU action
 
 The agent has been trained with a deep Q-network (DQN) with experience replay (ER) until it reached a average score of +13 over 100 consecutive episodes as required by the udacity nanodegree.
 
-The result was that the agent declared in average in episode 534 that he solved the environment (average of 13 over 100 episodes) and improved further until around episode 800 he started to fluctuate between an average of 15.5 and 16.0. 
+The result was that the agent declared in average in episode 534 that he solved the environment and improved further until around episode 800 where he started to fluctuate between an average of 15.5 and 16.0. 
 With small experiments with the hyperparameters it has shown that the initial parameters like used in previous lessons were quite optimal. [Code](./dqn_agent.py) 
 
 
