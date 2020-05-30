@@ -46,7 +46,7 @@ The network used consists of one input layer, two hidden layers with ReLU action
 | learning rate | 0.0005 | learning rate
 | &tau; | 0.003 | used by Double DQN and fixed Q-targets for softupdates of the 2nd network
 | &gamma; | 0.99 | discount factor for valuing future rewards
-| &epsilon; start | 1.0 | initial value for &epislin; which is the percent chance to take a random action instead of best current action
+| &epsilon; start | 1.0 | initial value for &epsilon; which is the percent chance to take a random action instead of best current action
 | &epsilon; decay | 0.995 | factor by which &epsilon; is reduced after each episode
 | &epsilon; minimal | 0.01 | minimal &epsilon; so that there is always a minimal random part
 
